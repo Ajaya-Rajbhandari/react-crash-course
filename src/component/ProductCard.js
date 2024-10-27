@@ -1,9 +1,10 @@
 import React from "react";
 
-export function ProductCard(props) {
+export function ProductCard({ product, background = "slategray", onPurchase }) {
   return (
     <article
       style={{
+        background,
         width: "100%",
         border: "1px solid black",
         borderRadius: "8px",
@@ -11,20 +12,17 @@ export function ProductCard(props) {
         textAlign: "center",
       }}
     >
-      <h2>{props.product.title}</h2>
-      <img
-        src={props.product.imgSrc}
-        alt={props.product.title}
-        width="128px"
-        height="128px"
-      />
+      <h2>{product.title}</h2>
+      <img src={product.imgSrc} alt={product.title} width={128} height={128} />
       <p>Specification: </p>
       <ul style={{ listStyle: "none", padding: 0 }}>
-        <li>{props.product.specification[0]}</li>
-        <li>{props.product.specification[1]}</li>
-        <li>{props.product.specification[2]}</li>
+        {product.specification.map((spec, index) => (
+          <li key={index}>{spec}</li>
+        ))}
       </ul>
-      <button>Buy (from ${props.product.price})</button>
+      <button onClick={() => onPurchase(product)}>
+        Buy (from ${product.price})
+      </button>
     </article>
   );
 }
