@@ -4,6 +4,7 @@ import iphone from "./img/iphone.png";
 import watch from "./img/watch.png";
 import mac from "./img/notebook.png";
 import { ProductList } from "./component/ProductList";
+import { Fragment } from "react";
 function App() {
   const products = [
     {
@@ -15,6 +16,7 @@ function App() {
         "Up to 29 hours video playback",
       ],
       price: 299,
+      stockCount: 30,
     },
     {
       imgSrc: watch,
@@ -25,6 +27,7 @@ function App() {
         "Up to 29 hours video playback",
       ],
       price: 249,
+      stockCount: 10,
     },
     {
       imgSrc: mac,
@@ -35,10 +38,12 @@ function App() {
         "Up to 29 hours video playback",
       ],
       price: 2399,
+      stockCount: 0,
     },
   ];
   function handlePurchase(product) {
     alert(`You Clicked on Product which cost $${product.price}`);
+    return `${product.stockCount} - 1`;
   }
   return (
     <div className="App">
@@ -56,9 +61,12 @@ function App() {
         {products
           .filter(({ price }) => price < 500)
           .map(({ title, price }) => (
-            <li>
-              {title} - ${price}
-            </li>
+            <Fragment key={title}>
+              <hr style={{ broderColor: "slategray" }} />
+              <p>
+                {title} - ${price}
+              </p>
+            </Fragment>
           ))}
       </ul>
     </div>
